@@ -1,0 +1,77 @@
+meta:
+  id: quiz-001
+  date: "2024-02-17"
+  topic: "Tech Basics: Web Development"
+  category: tech
+  difficulty: easy
+
+questions:
+  - id: q1
+    text: "What does HTML stand for?"
+    options:
+      - text: "Hyper Text Markup Language"
+        correct: true
+      - text: "High Tech Modern Language"
+        correct: false
+      - text: "Home Tool Markup Language"
+        correct: false
+      - text: "Hyperlinks and Text Markup Language"
+        correct: false
+    explanation: "HTML stands for Hyper Text Markup Language. It is the standard markup language for creating web pages and web applications."
+    points: 100
+
+  - id: q2
+    text: "Which programming language is known as the 'language of the web'?"
+    options:
+      - text: "Python"
+        correct: false
+      - text: "Java"
+        correct: false
+      - text: "JavaScript"
+        correct: true
+      - text: "C++"
+        correct: false
+    explanation: "JavaScript is known as the language of the web because it runs in every web browser and is essential for creating interactive web pages."
+    points: 100
+
+  - id: q3
+    text: "What does CSS stand for?"
+    options:
+      - text: "Computer Style Sheets"
+        correct: false
+      - text: "Cascading Style Sheets"
+        correct: true
+      - text: "Creative Style System"
+        correct: false
+      - text: "Colorful Style Sheets"
+        correct: false
+    explanation: "CSS stands for Cascading Style Sheets. It is used to describe the presentation of HTML elements, including colors, layouts, and fonts."
+    points: 100
+
+  - id: q4
+    text: "Which of these is NOT a JavaScript framework?"
+    options:
+      - text: "React"
+        correct: false
+      - text: "Vue"
+        correct: false
+      - text: "Django"
+        correct: true
+      - text: "Angular"
+        correct: false
+    explanation: "Django is a Python web framework, not a JavaScript framework. React, Vue, and Angular are all popular JavaScript frameworks for building user interfaces."
+    points: 100
+
+  - id: q5
+    text: "What is the purpose of Git?"
+    options:
+      - text: "To create websites"
+        correct: false
+      - text: "To version control code"
+        correct: true
+      - text: "To design graphics"
+        correct: false
+      - text: "To write documentation"
+        correct: false
+    explanation: "Git is a distributed version control system used to track changes in source code during software development, enabling collaboration among developers."
+    points: 100

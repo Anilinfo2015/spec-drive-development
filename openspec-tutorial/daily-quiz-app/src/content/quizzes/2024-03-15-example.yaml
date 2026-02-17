@@ -1,0 +1,112 @@
+# Example Quiz File
+# Filename must follow pattern: YYYY-MM-DD-topic-slug.yaml
+# This file demonstrates the complete quiz structure
+
+meta:
+  # Unique identifier for this quiz
+  id: quiz-example-001
+
+  # Date in ISO 8601 format (YYYY-MM-DD)
+  # Must match the date in the filename
+  date: "2024-03-15"
+
+  # Quiz topic (shown to users)
+  topic: "Example Quiz: Getting Started"
+
+  # Category (must be one of: tech, science, history, pop-culture, sports, general)
+  category: general
+
+  # Difficulty level (easy, medium, or hard)
+  difficulty: easy
+
+# Array of questions (at least 1 required)
+questions:
+  # Question 1
+  - id: q1
+    text: "What is the primary purpose of this example file?"
+
+    # Exactly 4 options required
+    options:
+      - text: "To confuse developers"
+        correct: false
+      - text: "To demonstrate the quiz YAML structure"
+        correct: true
+      - text: "To test your knowledge"
+        correct: false
+      - text: "To waste storage space"
+        correct: false
+
+    # Explanation shown after answering (20-500 characters)
+    explanation: "This example file shows contributors how to structure quiz content in YAML format, making it easy to add new quizzes to the platform."
+
+    # Points awarded for correct answer (1-1000, default: 100)
+    points: 100
+
+  # Question 2
+  - id: q2
+    text: "How many answer options must each question have?"
+    options:
+      - text: "2 options"
+        correct: false
+      - text: "3 options"
+        correct: false
+      - text: "4 options"
+        correct: true
+      - text: "As many as needed"
+        correct: false
+    explanation: "Each question must have exactly 4 answer options, with one marked as correct. This ensures consistency and fairness across all quizzes."
+    points: 100
+
+  # Question 3
+  - id: q3
+    text: "What format should the quiz date be in?"
+    options:
+      - text: "MM/DD/YYYY"
+        correct: false
+      - text: "DD-MM-YYYY"
+        correct: false
+      - text: "YYYY-MM-DD"
+        correct: true
+      - text: "Any format works"
+        correct: false
+    explanation: "The date must be in ISO 8601 format (YYYY-MM-DD) for proper sorting and international compatibility. For example: 2024-03-15."
+    points: 100
+
+  # Question 4
+  - id: q4
+    text: "What happens if the filename date doesn't match meta.date?"
+    options:
+      - text: "Nothing, it's just a warning"
+        correct: false
+      - text: "The build process will fail"
+        correct: true
+      - text: "The quiz will use the filename date"
+        correct: false
+      - text: "The quiz will use meta.date"
+        correct: false
+    explanation: "Validation ensures the filename date matches meta.date to prevent confusion. Mismatches cause build failures with clear error messages."
+    points: 100
+
+  # Question 5
+  - id: q5
+    text: "What is the minimum length for a question explanation?"
+    options:
+      - text: "10 characters"
+        correct: false
+      - text: "20 characters"
+        correct: true
+      - text: "50 characters"
+        correct: false
+      - text: "No minimum"
+        correct: false
+    explanation: "Explanations must be between 20 and 500 characters to ensure they provide meaningful educational value without being too verbose."
+    points: 100
+
+# Tips for creating great quizzes:
+# 1. Keep questions clear and unambiguous
+# 2. Write explanations that teach something new
+# 3. Make incorrect options plausible but clearly wrong
+# 4. Test your quiz by running the build process
+# 5. Use proper capitalization and punctuation
+# 6. Choose appropriate difficulty level
+# 7. Pick the right category for discoverability

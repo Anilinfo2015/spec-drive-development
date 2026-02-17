@@ -1,0 +1,129 @@
+---
+import { getQuizzesByCategory } from '@lib/quizLoader';
+import type { QuizCategory } from '@types/quiz';
+
+const categories: QuizCategory[] = ['tech', 'science', 'history', 'pop-culture', 'sports', 'general'];
+
+export async function getStaticPaths() {
+  const paths = await Promise.all(
+    categories.map(async (category) => {
+      const quizzes = await getQuizzesByCategory(category);
+      return {
+        params: { category },
+        props: { quizzes, category },
+      };
+    })
+  );
+
+  return paths;
+}
+
+const { quizzes, category } = Astro.props;
+const today = new Date().toISOString().split('T')[0];
+
+const categoryNames: Record<QuizCategory, string> = {
+  'tech': 'Technology',
+  'science': 'Science',
+  'history': 'History',
+  'pop-culture': 'Pop Culture',
+  'sports': 'Sports',
+  'general': 'General Knowledge',
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{categoryNames[category as QuizCategory]} Quizzes - Daily Quiz</title>
+    <meta name="description" content={`Browse all ${categoryNames[category as QuizCategory]} quizzes`} />
+  </head>
+  <body>
+    <div class="min-h-screen bg-white dark:bg-gray-900">
+      <main class="container mx-auto px-4 py-8 max-w-4xl">
+        <header class="mb-8">
+          <a href="/" class="text-blue-500 hover:text-blue-600 mb-4 inline-block">
+            ← Back to all quizzes
+          </a>
+          <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+            {categoryNames[category as QuizCategory]}
+          </h1>
+          <p class="text-gray-600 dark:text-gray-400">
+            {quizzes.length} quiz{quizzes.length !== 1 ? 'zes' : ''} in this category
+          </p>
+        </header>
+
+        {quizzes.length > 0 ? (
+          <div class="grid gap-4">
+            {quizzes.map((quiz) => {
+              const isPast = quiz.data.meta.date < today;
+              const isToday = quiz.data.meta.date === today;
+
+              return (
+                <a
+                  href={`/quiz/${quiz.data.meta.date}`}
+                  class="block bg-white dark:bg-gray-800 rounded-xl p-6 shadow hover:shadow-lg transition border border-gray-200 dark:border-gray-700"
+                >
+                  <div class="flex items-start justify-between gap-4">
+                    <div class="flex-1">
+                      <div class="flex items-center gap-2 mb-2">
+                        {isToday && (
+                          <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full font-bold">
+                            TODAY
+                          </span>
+                        )}
+                        <span class="text-sm text-gray-500 dark:text-gray-400">
+                          {quiz.data.meta.date}
+                        </span>
+                      </div>
+                      <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                        {quiz.data.meta.topic}
+                      </h3>
+                      <div class="flex gap-3 text-sm text-gray-600 dark:text-gray-400">
+                        <span class="capitalize">{quiz.data.meta.difficulty}</span>
+                        <span>•</span>
+                        <span>{quiz.data.questions.length} questions</span>
+                      </div>
+                    </div>
+                    <div class="text-2xl">
+                      {isToday ? '🎯' : isPast ? '📚' : '🔒'}
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        ) : (
+          <div class="bg-gray-100 dark:bg-gray-800 rounded-xl p-8 text-center">
+            <p class="text-gray-600 dark:text-gray-400">
+              No quizzes in this category yet.
+            </p>
+          </div>
+        )}
+
+        <nav class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
+            Other Categories
+          </h2>
+          <div class="flex flex-wrap gap-2">
+            {categories
+              .filter(c => c !== category)
+              .map(c => (
+                <a
+                  href={`/category/${c}`}
+                  class="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 px-4 py-2 rounded-lg capitalize transition"
+                >
+                  {categoryNames[c]}
+                </a>
+              ))}
+          </div>
+        </nav>
+      </main>
+    </div>
+  </body>
+</html>
+
+<style>
+  @import '../../styles/global.css';
+</style>

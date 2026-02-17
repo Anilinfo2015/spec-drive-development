@@ -1,0 +1,219 @@
+---
+import { getAllQuizzes, getTodaysQuiz } from '@lib/quizLoader';
+
+const todaysQuiz = await getTodaysQuiz();
+const allQuizzes = await getAllQuizzes();
+const today = new Date().toISOString().split('T')[0];
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Quiz - Test Your Knowledge</title>
+    <meta name="description" content="Take the daily quiz and test your knowledge. New quiz every day!" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  </head>
+  <body class="bg-gray-50 dark:bg-slate-900">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+              <span class="text-white text-xl font-bold">Q</span>
+            </div>
+            <span class="text-xl font-semibold text-gray-900 dark:text-white">Daily Quiz</span>
+          </div>
+          <button
+            id="theme-toggle"
+            class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
+            aria-label="Toggle theme"
+          >
+            <svg class="w-5 h-5 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+            </svg>
+            <svg class="w-5 h-5 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <!-- Hero Section -->
+      <div class="text-center mb-12 sm:mb-16">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
+          Challenge Your Knowledge
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-600 dark:text-slate-400 max-w-2xl mx-auto">
+          Test yourself with our daily quizzes. Build streaks, earn achievements, and compete with friends.
+        </p>
+      </div>
+
+      <!-- Today's Quiz -->
+      {todaysQuiz ? (
+        <section class="mb-12">
+          <div class="relative overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-8 sm:p-12 text-white card-shadow-lg">
+            <div class="relative z-10">
+              <div class="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 mb-4">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-sm font-medium">Today's Challenge</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-bold mb-4">{todaysQuiz.data.meta.topic}</h2>
+              <div class="flex flex-wrap gap-3 mb-6">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20 backdrop-blur-sm">
+                  <span class="capitalize">{todaysQuiz.data.meta.category}</span>
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20 backdrop-blur-sm">
+                  <span class="capitalize">{todaysQuiz.data.meta.difficulty}</span>
+                </span>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/20 backdrop-blur-sm">
+                  {todaysQuiz.data.questions.length} Questions
+                </span>
+              </div>
+              <a
+                href={`/quiz/${todaysQuiz.data.meta.date}`}
+                class="inline-flex items-center justify-center px-8 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-all transform hover:scale-105 active:scale-95"
+              >
+                Start Quiz
+                <svg class="ml-2 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
+            </div>
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
+          </div>
+        </section>
+      ) : (
+        <section class="mb-12">
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 sm:p-12 text-center border border-gray-200 dark:border-slate-700">
+            <div class="w-16 h-16 bg-gray-100 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-gray-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              Check Back Tomorrow
+            </h2>
+            <p class="text-gray-600 dark:text-slate-400">
+              Today's quiz isn't available yet. Explore our quiz archive below.
+            </p>
+          </div>
+        </section>
+      )}
+
+      <!-- Quiz Archive -->
+      <section>
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Quiz Archive</h2>
+          <span class="text-sm text-gray-500 dark:text-slate-400">{allQuizzes.length} quizzes</span>
+        </div>
+
+        <div class="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {allQuizzes.map((quiz) => {
+            const isPast = quiz.data.meta.date < today;
+            const isToday = quiz.data.meta.date === today;
+            const isFuture = quiz.data.meta.date > today;
+
+            return (
+              <a
+                href={isFuture ? '#' : `/quiz/${quiz.data.meta.date}`}
+                class={`group block bg-white dark:bg-slate-800 rounded-xl p-6 border transition-all ${
+                  isFuture
+                    ? 'border-gray-200 dark:border-slate-700 opacity-50 cursor-not-allowed'
+                    : 'border-gray-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-lg card-shadow'
+                }`}
+              >
+                <div class="flex items-start justify-between mb-3">
+                  <div class="flex items-center space-x-2">
+                    {isToday && (
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400">
+                        Live Now
+                      </span>
+                    )}
+                    {isFuture && (
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-400">
+                        Coming Soon
+                      </span>
+                    )}
+                  </div>
+                  <span class="text-2xl">{isToday ? '🎯' : isPast ? '✓' : '🔒'}</span>
+                </div>
+
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  {quiz.data.meta.topic}
+                </h3>
+
+                <div class="flex items-center space-x-4 text-sm text-gray-500 dark:text-slate-400">
+                  <span class="capitalize">{quiz.data.meta.category}</span>
+                  <span>•</span>
+                  <span class="capitalize">{quiz.data.meta.difficulty}</span>
+                  <span>•</span>
+                  <span>{quiz.data.questions.length}Q</span>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-gray-100 dark:border-slate-700">
+                  <div class="flex items-center justify-between text-xs text-gray-500 dark:text-slate-400">
+                    <span>{quiz.data.meta.date}</span>
+                    {!isFuture && (
+                      <span class="text-blue-600 dark:text-blue-400 font-medium">
+                        Play now →
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-slate-800 mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="text-center text-sm text-gray-600 dark:text-slate-400">
+          <p>Built with spec-driven development using OpenSpec</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Theme toggle
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          return 'dark';
+        }
+        return 'light';
+      })();
+
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        const toggleBtn = document.getElementById('theme-toggle');
+        if (toggleBtn) {
+          toggleBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+          });
+        }
+      });
+    </script>
+
+    <style>
+      @import '../styles/global.css';
+    </style>
+  </body>
+</html>
