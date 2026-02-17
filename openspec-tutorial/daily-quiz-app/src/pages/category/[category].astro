@@ -5,8 +5,9 @@ import type { QuizCategory } from '@types/quiz';
 const categories: QuizCategory[] = ['tech', 'science', 'history', 'pop-culture', 'sports', 'general'];
 
 export async function getStaticPaths() {
+  const staticCategories: QuizCategory[] = ['tech', 'science', 'history', 'pop-culture', 'sports', 'general'];
   const paths = await Promise.all(
-    categories.map(async (category) => {
+    staticCategories.map(async (category) => {
       const quizzes = await getQuizzesByCategory(category);
       return {
         params: { category },
