@@ -1,0 +1,77 @@
+meta:
+  id: quiz-004
+  date: "2026-02-18"
+  topic: "World Wars: Major Events & Figures"
+  category: history
+  difficulty: medium
+
+questions:
+  - id: q1
+    text: "What year did World War I begin?"
+    options:
+      - text: "1912"
+        correct: false
+      - text: "1914"
+        correct: true
+      - text: "1916"
+        correct: false
+      - text: "1918"
+        correct: false
+    explanation: "World War I began in 1914 after the assassination of Archduke Franz Ferdinand of Austria. It lasted until 1918 and involved many of the world's great powers."
+    points: 100
+
+  - id: q2
+    text: "Which battle is considered the turning point of World War II in Europe?"
+    options:
+      - text: "Battle of Britain"
+        correct: false
+      - text: "Battle of Stalingrad"
+        correct: true
+      - text: "D-Day"
+        correct: false
+      - text: "Battle of the Bulge"
+        correct: false
+    explanation: "The Battle of Stalingrad (1942-1943) is widely considered the turning point of World War II in Europe. The Soviet victory marked the beginning of Germany's retreat on the Eastern Front and dealt a severe blow to the German military."
+    points: 100
+
+  - id: q3
+    text: "What was the main purpose of the Manhattan Project?"
+    options:
+      - text: "To build the first nuclear weapons"
+        correct: true
+      - text: "To develop radar technology"
+        correct: false
+      - text: "To crack enemy codes"
+        correct: false
+      - text: "To create long-range bombers"
+        correct: false
+    explanation: "The Manhattan Project was a secret U.S. government research project during World War II that developed the first nuclear weapons. It led to the atomic bombs dropped on Hiroshima and Nagasaki in 1945."
+    points: 100
+
+  - id: q4
+    text: "Which country remained neutral during both World Wars?"
+    options:
+      - text: "Belgium"
+        correct: false
+      - text: "Switzerland"
+        correct: true
+      - text: "Netherlands"
+        correct: false
+      - text: "Denmark"
+        correct: false
+    explanation: "Switzerland maintained armed neutrality during both World Wars. Its policy of neutrality and heavily armed defense forces helped it avoid invasion. Other mentioned countries were invaded or participated in the wars."
+    points: 100
+
+  - id: q5
+    text: "What was the Treaty of Versailles?"
+    options:
+      - text: "The peace treaty that ended World War I"
+        correct: true
+      - text: "The alliance that started World War I"
+        correct: false
+      - text: "The surrender agreement of World War II"
+        correct: false
+      - text: "The declaration of war by Germany"
+        correct: false
+    explanation: "The Treaty of Versailles was signed in 1919 and officially ended World War I. It imposed harsh reparations and territorial losses on Germany, which many historians believe contributed to the conditions that led to World War II."
+    points: 100

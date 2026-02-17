@@ -1,0 +1,91 @@
+meta:
+  id: quiz-005
+  date: "2026-02-19"
+  topic: "Pop Culture: Iconic Movies & TV Shows"
+  category: pop-culture
+  difficulty: easy
+
+questions:
+  - id: q1
+    text: "Which movie won the Academy Award for Best Picture in 2020?"
+    options:
+      - text: "1917"
+        correct: false
+      - text: "Parasite"
+        correct: true
+      - text: "Joker"
+        correct: false
+      - text: "Once Upon a Time in Hollywood"
+        correct: false
+    explanation: "Parasite, directed by Bong Joon-ho, won Best Picture at the 2020 Academy Awards, becoming the first non-English language film to win this category. It also won Best Director, Best Original Screenplay, and Best International Feature Film."
+    points: 100
+
+  - id: q2
+    text: "In 'The Office' (US), what is Michael Scott's catchphrase?"
+    options:
+      - text: "How you doin'?"
+        correct: false
+      - text: "That's what she said"
+        correct: true
+      - text: "Bazinga!"
+        correct: false
+      - text: "D'oh!"
+        correct: false
+    explanation: "Michael Scott's most famous catchphrase in The Office is 'That's what she said,' which he uses to turn innocent statements into double entendres. Steve Carell's character became iconic for this and many other memorable quotes."
+    points: 100
+
+  - id: q3
+    text: "Which streaming service produced 'Stranger Things'?"
+    options:
+      - text: "Hulu"
+        correct: false
+      - text: "Amazon Prime"
+        correct: false
+      - text: "Netflix"
+        correct: true
+      - text: "Disney+"
+        correct: false
+    explanation: "Stranger Things is a Netflix original series created by the Duffer Brothers. It premiered in 2016 and became one of Netflix's most popular shows, set in the 1980s with a mix of sci-fi, horror, and coming-of-age themes."
+    points: 100
+
+  - id: q4
+    text: "Who directed the 'Lord of the Rings' trilogy?"
+    options:
+      - text: "James Cameron"
+        correct: false
+      - text: "Steven Spielberg"
+        correct: false
+      - text: "Peter Jackson"
+        correct: true
+      - text: "Christopher Nolan"
+        correct: false
+    explanation: "Peter Jackson directed all three films in the Lord of the Rings trilogy: The Fellowship of the Ring (2001), The Two Towers (2002), and The Return of the King (2003). The trilogy won a total of 17 Academy Awards."
+    points: 100
+
+  - id: q5
+    text: "What is the highest-grossing film of all time (unadjusted for inflation)?"
+    options:
+      - text: "Titanic"
+        correct: false
+      - text: "Avatar"
+        correct: true
+      - text: "Avengers: Endgame"
+        correct: false
+      - text: "Star Wars: The Force Awakens"
+        correct: false
+    explanation: "Avatar (2009), directed by James Cameron, is the highest-grossing film of all time with over $2.9 billion worldwide (unadjusted for inflation). It briefly lost this title to Avengers: Endgame but reclaimed it after a 2021 re-release."
+    points: 100
+
+  - id: q6
+    text: "Which TV show features the song 'Woke Up This Morning' as its theme?"
+    options:
+      - text: "Breaking Bad"
+        correct: false
+      - text: "The Sopranos"
+        correct: true
+      - text: "The Wire"
+        correct: false
+      - text: "Mad Men"
+        correct: false
+    explanation: "The Sopranos used 'Woke Up This Morning' by Alabama 3 as its opening theme. The show, which aired from 1999 to 2007, is widely regarded as one of the greatest television series of all time and revolutionized TV drama."
+    points: 100

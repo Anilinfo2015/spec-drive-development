@@ -1,9 +1,13 @@
 ---
 import { getAllQuizzes, getTodaysQuiz } from '@lib/quizLoader';
+import { Home, Clock, Trophy, BookOpen, Zap } from '@lucide/astro';
 
 const todaysQuiz = await getTodaysQuiz();
 const allQuizzes = await getAllQuizzes();
 const today = new Date().toISOString().split('T')[0];
+
+// Use base path from Astro config
+const base = import.meta.env.BASE_URL;
 ---
 
 <!DOCTYPE html>
@@ -78,7 +82,7 @@ const today = new Date().toISOString().split('T')[0];
                 </span>
               </div>
               <a
-                href={`/quiz/${todaysQuiz.data.meta.date}`}
+                href={`${base}quiz/${todaysQuiz.data.meta.date}/`}
                 class="inline-flex items-center justify-center px-8 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-all transform hover:scale-105 active:scale-95"
               >
                 Start Quiz
@@ -124,7 +128,7 @@ const today = new Date().toISOString().split('T')[0];
 
             return (
               <a
-                href={isFuture ? '#' : `/quiz/${quiz.data.meta.date}`}
+                href={isFuture ? '#' : `${base}quiz/${quiz.data.meta.date}/`}
                 class={`group block bg-white dark:bg-slate-800 rounded-xl p-6 border transition-all ${
                   isFuture
                     ? 'border-gray-200 dark:border-slate-700 opacity-50 cursor-not-allowed'

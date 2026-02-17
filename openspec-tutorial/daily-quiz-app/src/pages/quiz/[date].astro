@@ -1,5 +1,6 @@
 ---
 import { getAllQuizzes } from '@lib/quizLoader';
+import { Home, Moon, Sun } from '@lucide/astro';
 
 export async function getStaticPaths() {
   const quizzes = await getAllQuizzes();
@@ -12,6 +13,7 @@ export async function getStaticPaths() {
 
 const { quiz } = Astro.props;
 const { meta, questions } = quiz;
+const base = import.meta.env.BASE_URL;
 ---
 
 <!DOCTYPE html>
@@ -37,7 +39,7 @@ const { meta, questions } = quiz;
     <nav class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-b border-gray-200 dark:border-slate-800">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
-          <a href="/" class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+          <a href={base} class="flex items-center space-x-3 hover:opacity-80 transition-opacity">
             <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <span class="text-white text-lg font-bold">Q</span>
             </div>

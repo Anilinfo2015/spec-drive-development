@@ -1,0 +1,91 @@
+meta:
+  id: quiz-003
+  date: "2026-02-17"
+  topic: "Advanced Science: Physics & Chemistry"
+  category: science
+  difficulty: hard
+
+questions:
+  - id: q1
+    text: "What is the Heisenberg Uncertainty Principle?"
+    options:
+      - text: "You cannot simultaneously know the exact position and momentum of a particle"
+        correct: true
+      - text: "Energy cannot be created or destroyed"
+        correct: false
+      - text: "For every action, there is an equal and opposite reaction"
+        correct: false
+      - text: "Objects in motion stay in motion unless acted upon by a force"
+        correct: false
+    explanation: "The Heisenberg Uncertainty Principle states that there is a fundamental limit to the precision with which certain pairs of physical properties, such as position and momentum, can be simultaneously known. This is a cornerstone of quantum mechanics."
+    points: 100
+
+  - id: q2
+    text: "What is the pH of a neutral solution at 25°C?"
+    options:
+      - text: "0"
+        correct: false
+      - text: "7"
+        correct: true
+      - text: "14"
+        correct: false
+      - text: "10"
+        correct: false
+    explanation: "A neutral solution at 25°C has a pH of 7. Solutions with pH < 7 are acidic, and solutions with pH > 7 are basic (alkaline). The pH scale typically ranges from 0 to 14."
+    points: 100
+
+  - id: q3
+    text: "What is the speed of light in a vacuum?"
+    options:
+      - text: "299,792,458 meters per second"
+        correct: true
+      - text: "300,000 meters per second"
+        correct: false
+      - text: "186,000 miles per hour"
+        correct: false
+      - text: "150,000,000 kilometers per second"
+        correct: false
+    explanation: "The speed of light in a vacuum is exactly 299,792,458 meters per second (approximately 186,282 miles per second). This is often rounded to 3 × 10^8 m/s for calculations. It is a fundamental constant in physics."
+    points: 100
+
+  - id: q4
+    text: "Which element has the highest electronegativity?"
+    options:
+      - text: "Oxygen"
+        correct: false
+      - text: "Nitrogen"
+        correct: false
+      - text: "Fluorine"
+        correct: true
+      - text: "Chlorine"
+        correct: false
+    explanation: "Fluorine has the highest electronegativity of all elements (3.98 on the Pauling scale). This means it has the strongest ability to attract electrons in a chemical bond."
+    points: 100
+
+  - id: q5
+    text: "What is the first law of thermodynamics?"
+    options:
+      - text: "Energy cannot be created or destroyed, only transformed"
+        correct: true
+      - text: "Entropy of a system always increases"
+        correct: false
+      - text: "For every action, there is an equal and opposite reaction"
+        correct: false
+      - text: "The total momentum is conserved in a closed system"
+        correct: false
+    explanation: "The first law of thermodynamics, also known as the law of conservation of energy, states that energy cannot be created or destroyed, only transformed from one form to another. The total energy of an isolated system remains constant."
+    points: 100
+
+  - id: q6
+    text: "What is a black hole's event horizon?"
+    options:
+      - text: "The boundary beyond which nothing can escape the black hole's gravity"
+        correct: true
+      - text: "The center of the black hole where matter is compressed"
+        correct: false
+      - text: "The radiation emitted by a black hole"
+        correct: false
+      - text: "The ring around a black hole visible from Earth"
+        correct: false
+    explanation: "The event horizon is the boundary around a black hole beyond which nothing, not even light, can escape. Once something crosses the event horizon, it is irreversibly pulled towards the singularity at the center."
+    points: 100
