@@ -1,0 +1,107 @@
+---
+import { Github, Twitter, Mail, Heart } from '@lucide/astro';
+
+const base = import.meta.env.BASE_URL;
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 mt-auto">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Brand Section -->
+      <div class="md:col-span-2">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
+            <span class="text-white text-xl font-bold">Q</span>
+          </div>
+          <span class="text-xl font-bold text-gray-900 dark:text-white">Daily Quiz</span>
+        </div>
+        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-4">
+          Challenge yourself daily with curated quizzes across various topics.
+          Build knowledge, track progress, and compete with friends.
+        </p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors" aria-label="Twitter">
+            <Twitter class="w-5 h-5" />
+          </a>
+          <a href="#" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors" aria-label="GitHub">
+            <Github class="w-5 h-5" />
+          </a>
+          <a href="#" class="text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors" aria-label="Email">
+            <Mail class="w-5 h-5" />
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">
+          Categories
+        </h3>
+        <ul class="space-y-2">
+          <li>
+            <a href={`${base}category/tech/`} class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">
+              Technology
+            </a>
+          </li>
+          <li>
+            <a href={`${base}category/science/`} class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">
+              Science
+            </a>
+          </li>
+          <li>
+            <a href={`${base}category/history/`} class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">
+              History
+            </a>
+          </li>
+          <li>
+            <a href={`${base}category/pop-culture/`} class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">
+              Pop Culture
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- About -->
+      <div>
+        <h3 class="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider mb-4">
+          About
+        </h3>
+        <ul class="space-y-2">
+          <li>
+            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">
+              How It Works
+            </a>
+          </li>
+          <li>
+            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">
+              Privacy Policy
+            </a>
+          </li>
+          <li>
+            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">
+              Terms of Service
+            </a>
+          </li>
+          <li>
+            <a href="#" class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 text-sm transition-colors">
+              Contact Us
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-8 pt-8 border-t border-gray-200 dark:border-slate-800">
+      <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+        <p class="text-sm text-gray-600 dark:text-gray-400 text-center md:text-left">
+          © {currentYear} Daily Quiz. Built with spec-driven development using OpenSpec.
+        </p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-1">
+          Made with <Heart class="w-4 h-4 text-red-500 fill-red-500" /> by the community
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
