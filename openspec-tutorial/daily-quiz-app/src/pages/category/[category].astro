@@ -84,12 +84,11 @@ const categoryBgColors: Record<QuizCategory, string> = {
           return (
             <a
               href={isFuture ? '#' : `${base}quiz/${quiz.data.meta.date}/`}
-              class={`block bg-white dark:bg-slate-800 rounded-2xl overflow-hidden transition-all duration-300 border border-gray-200 dark:border-slate-700 ${
+              class={`block bg-white dark:bg-slate-800 rounded-2xl overflow-hidden transition-all duration-300 border border-gray-200 dark:border-slate-700 shadow-md ${
                 isFuture 
                   ? 'opacity-60 cursor-not-allowed' 
                   : 'hover:shadow-xl hover:-translate-y-0.5 cursor-pointer'
               }`}
-              style="box-shadow: var(--md-shadow-2)"
             >
               <!-- Color accent bar -->
               <div class={`h-1 ${categoryBgColors[category as QuizCategory]}`}></div>
