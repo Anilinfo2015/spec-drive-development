@@ -1,7 +1,8 @@
 ---
+import Layout from '@layouts/Layout.astro';
 import { getQuizzesByCategory } from '@lib/quizLoader';
 import type { QuizCategory } from '@types/quiz';
-import { ArrowLeft } from '@lucide/astro';
+import { ArrowLeft, Calendar } from '@lucide/astro';
 
 const categories: QuizCategory[] = ['tech', 'science', 'history', 'pop-culture', 'sports', 'general'];
 
@@ -22,7 +23,8 @@ export async function getStaticPaths() {
 
 const { quizzes, category } = Astro.props;
 const today = new Date().toISOString().split('T')[0];
-const base = import.meta.env.BASE_URL;
+const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
 
 const categoryNames: Record<QuizCategory, string> = {
   'tech': 'Technology',
@@ -32,101 +34,140 @@ const categoryNames: Record<QuizCategory, string> = {
   'sports': 'Sports',
   'general': 'General Knowledge',
 };
+
+const categoryColors: Record<QuizCategory, string> = {
+  'tech': 'from-blue-500 to-blue-600',
+  'science': 'from-green-500 to-green-600',
+  'history': 'from-amber-500 to-amber-600',
+  'pop-culture': 'from-purple-500 to-purple-600',
+  'sports': 'from-red-500 to-red-600',
+  'general': 'from-gray-500 to-gray-600',
+};
+
+const categoryBgColors: Record<QuizCategory, string> = {
+  'tech': 'bg-blue-500',
+  'science': 'bg-green-500',
+  'history': 'bg-amber-500',
+  'pop-culture': 'bg-purple-500',
+  'sports': 'bg-red-500',
+  'general': 'bg-gray-500',
+};
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{categoryNames[category as QuizCategory]} Quizzes - Daily Quiz</title>
-    <meta name="description" content={`Browse all ${categoryNames[category as QuizCategory]} quizzes`} />
-  </head>
-  <body>
-    <div class="min-h-screen bg-white dark:bg-gray-900">
-      <main class="container mx-auto px-4 py-8 max-w-4xl">
-        <header class="mb-8">
-          <a href={base} class="text-blue-500 hover:text-blue-600 mb-4 inline-block">
-            ← Back to all quizzes
-          </a>
-          <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            {categoryNames[category as QuizCategory]}
-          </h1>
-          <p class="text-gray-600 dark:text-gray-400">
-            {quizzes.length} quiz{quizzes.length !== 1 ? 'zes' : ''} in this category
-          </p>
-        </header>
+<Layout title={`${categoryNames[category as QuizCategory]} Quizzes - Daily Quiz`} description={`Browse all ${categoryNames[category as QuizCategory]} quizzes`}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <!-- Back Link -->
+    <a href={base} class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 font-medium mb-6 transition-colors">
+      <ArrowLeft class="w-4 h-4" />
+      Back to all quizzes
+    </a>
+    
+    <!-- Category Header -->
+    <div class="mb-10">
+      <div class={`inline-block w-16 h-1.5 rounded-full bg-gradient-to-r ${categoryColors[category as QuizCategory]} mb-4`}></div>
+      <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">
+        {categoryNames[category as QuizCategory]}
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400">
+        {quizzes.length} quiz{quizzes.length !== 1 ? 'zes' : ''} available in this category
+      </p>
+    </div>
 
-        {quizzes.length > 0 ? (
-          <div class="grid gap-4">
-            {quizzes.map((quiz) => {
-              const isPast = quiz.data.meta.date < today;
-              const isToday = quiz.data.meta.date === today;
+    <!-- Quiz List -->
+    {quizzes.length > 0 ? (
+      <div class="space-y-4">
+        {quizzes.map((quiz) => {
+          const isPast = quiz.data.meta.date < today;
+          const isToday = quiz.data.meta.date === today;
+          const isFuture = quiz.data.meta.date > today;
 
-              return (
-                <a
-                  href={`${base}quiz/${quiz.data.meta.date}/`}
-                  class="block bg-white dark:bg-gray-800 rounded-xl p-6 shadow hover:shadow-lg transition border border-gray-200 dark:border-gray-700"
-                >
-                  <div class="flex items-start justify-between gap-4">
-                    <div class="flex-1">
-                      <div class="flex items-center gap-2 mb-2">
-                        {isToday && (
-                          <span class="bg-green-500 text-white text-xs px-2 py-1 rounded-full font-bold">
-                            TODAY
-                          </span>
-                        )}
-                        <span class="text-sm text-gray-500 dark:text-gray-400">
-                          {quiz.data.meta.date}
+          return (
+            <a
+              href={isFuture ? '#' : `${base}quiz/${quiz.data.meta.date}/`}
+              class={`block bg-white dark:bg-slate-800 rounded-2xl overflow-hidden transition-all duration-300 border border-gray-200 dark:border-slate-700 ${
+                isFuture 
+                  ? 'opacity-60 cursor-not-allowed' 
+                  : 'hover:shadow-xl hover:-translate-y-0.5 cursor-pointer'
+              }`}
+              style="box-shadow: var(--md-shadow-2)"
+            >
+              <!-- Color accent bar -->
+              <div class={`h-1 ${categoryBgColors[category as QuizCategory]}`}></div>
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between gap-4">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-3">
+                      {isToday && (
+                        <span class="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs px-3 py-1 rounded-full font-semibold shadow-sm">
+                          🎯 TODAY
                         </span>
-                      </div>
-                      <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
-                        {quiz.data.meta.topic}
-                      </h3>
-                      <div class="flex gap-3 text-sm text-gray-600 dark:text-gray-400">
-                        <span class="capitalize">{quiz.data.meta.difficulty}</span>
-                        <span>•</span>
-                        <span>{quiz.data.questions.length} questions</span>
-                      </div>
+                      )}
+                      {isFuture && (
+                        <span class="bg-gray-400 text-white text-xs px-3 py-1 rounded-full font-semibold">
+                          🔒 Coming Soon
+                        </span>
+                      )}
+                      <span class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
+                        <Calendar class="w-4 h-4" />
+                        {quiz.data.meta.date}
+                      </span>
                     </div>
-                    <div class="text-2xl">
-                      {isToday ? '🎯' : isPast ? '📚' : '🔒'}
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
+                      {quiz.data.meta.topic}
+                    </h3>
+                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                      <span class={`capitalize px-2 py-0.5 rounded-md text-xs font-medium ${
+                        quiz.data.meta.difficulty === 'easy' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                        quiz.data.meta.difficulty === 'medium' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
+                        'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                      }`}>
+                        {quiz.data.meta.difficulty}
+                      </span>
+                      <span class="w-1 h-1 rounded-full bg-gray-400"></span>
+                      <span>{quiz.data.questions.length} questions</span>
                     </div>
                   </div>
-                </a>
-              );
-            })}
-          </div>
-        ) : (
-          <div class="bg-gray-100 dark:bg-gray-800 rounded-xl p-8 text-center">
-            <p class="text-gray-600 dark:text-gray-400">
-              No quizzes in this category yet.
-            </p>
-          </div>
-        )}
+                  {!isFuture && (
+                    <div class="text-blue-600 dark:text-blue-400 font-semibold text-sm flex items-center gap-1">
+                      Start
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    ) : (
+      <div class="bg-gray-100 dark:bg-slate-800 rounded-2xl p-12 text-center">
+        <div class="text-4xl mb-4">📭</div>
+        <p class="text-gray-600 dark:text-gray-400 text-lg">
+          No quizzes in this category yet. Check back soon!
+        </p>
+      </div>
+    )}
 
-        <nav class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-          <h2 class="text-lg font-bold text-gray-900 dark:text-white mb-4">
-            Other Categories
-          </h2>
-          <div class="flex flex-wrap gap-2">
-            {categories
-              .filter(c => c !== category)
-              .map(c => (
-                <a
-                  href={`${base}category/${c}/`}
-                  class="bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 px-4 py-2 rounded-lg capitalize transition"
-                >
-                  {categoryNames[c]}
-                </a>
-              ))}
-          </div>
-        </nav>
-      </main>
-    </div>
-  </body>
-</html>
-
-<style>
-  @import '../../styles/global.css';
-</style>
+    <!-- Other Categories -->
+    <nav class="mt-12 pt-8 border-t border-gray-200 dark:border-slate-700">
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-5">
+        Explore Other Categories
+      </h2>
+      <div class="flex flex-wrap gap-3">
+        {categories
+          .filter(c => c !== category)
+          .map(c => (
+            <a
+              href={`${base}category/${c}/`}
+              class="bg-white dark:bg-slate-800 hover:bg-gray-50 dark:hover:bg-slate-700 px-5 py-2.5 rounded-xl font-medium text-gray-700 dark:text-gray-300 transition-all duration-200 border border-gray-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md"
+            >
+              {categoryNames[c]}
+            </a>
+          ))}
+      </div>
+    </nav>
+  </div>
+</Layout>
