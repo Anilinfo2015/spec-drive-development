@@ -1,7 +1,8 @@
 ---
 import { Home, Moon, Sun } from '@lucide/astro';
 
-const base = import.meta.env.BASE_URL;
+const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith('/') ? baseUrl : baseUrl + '/';
 ---
 
 <header class="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-b border-gray-200 dark:border-slate-800 shadow-sm">
@@ -19,20 +20,20 @@ const base = import.meta.env.BASE_URL;
       </a>
 
       <!-- Navigation -->
-      <nav class="hidden md:flex items-center space-x-6">
-        <a href={base} class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">
+      <nav class="hidden md:flex items-center gap-8">
+        <a href={base} class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors px-1">
           Home
         </a>
-        <a href={`${base}category/tech/`} class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">
+        <a href={`${base}category/tech/`} class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors px-1">
           Tech
         </a>
-        <a href={`${base}category/science/`} class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">
+        <a href={`${base}category/science/`} class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors px-1">
           Science
         </a>
-        <a href={`${base}category/history/`} class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">
+        <a href={`${base}category/history/`} class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors px-1">
           History
         </a>
-        <a href={`${base}category/pop-culture/`} class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors">
+        <a href={`${base}category/pop-culture/`} class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 font-medium transition-colors px-1">
           Pop Culture
         </a>
       </nav>
