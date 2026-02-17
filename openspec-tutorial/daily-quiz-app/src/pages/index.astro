@@ -84,60 +84,93 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
           <span class="text-sm text-gray-500 dark:text-slate-400">{allQuizzes.length} quizzes</span>
         </div>
 
-        <div class="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {allQuizzes.map((quiz) => {
             const isPast = quiz.data.meta.date < today;
             const isToday = quiz.data.meta.date === today;
             const isFuture = quiz.data.meta.date > today;
 
             return (
-              <a
-                href={isFuture ? '#' : `${base}quiz/${quiz.data.meta.date}/`}
-                class={`group block bg-white dark:bg-slate-800 rounded-xl p-6 border transition-all ${
+              <article
+                class={`group relative bg-white dark:bg-slate-800 rounded-2xl overflow-hidden transition-all duration-300 ${
                   isFuture
-                    ? 'border-gray-200 dark:border-slate-700 opacity-50 cursor-not-allowed'
-                    : 'border-gray-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-lg card-shadow'
+                    ? 'opacity-60 cursor-not-allowed'
+                    : 'hover:shadow-xl hover:-translate-y-1 cursor-pointer'
                 }`}
+                style="box-shadow: var(--md-shadow-2)"
               >
-                <div class="flex items-start justify-between mb-3">
-                  <div class="flex items-center space-x-2">
+                <a
+                  href={isFuture ? '#' : `${base}quiz/${quiz.data.meta.date}/`}
+                  class="block"
+                >
+                  <!-- Status Badge -->
+                  <div class="absolute top-4 right-4 z-10">
                     {isToday && (
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400">
-                        Live Now
+                      <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-green-500 text-white shadow-lg">
+                        ● Live Now
                       </span>
                     )}
                     {isFuture && (
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-slate-400">
-                        Coming Soon
+                      <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-gray-400 text-white">
+                        🔒 Coming Soon
                       </span>
                     )}
                   </div>
-                  <span class="text-2xl">{isToday ? '🎯' : isPast ? '✓' : '🔒'}</span>
-                </div>
 
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                  {quiz.data.meta.topic}
-                </h3>
+                  <!-- Category Color Bar -->
+                  <div class={`h-2 ${
+                    quiz.data.meta.category === 'tech' ? 'bg-blue-500' :
+                    quiz.data.meta.category === 'science' ? 'bg-green-500' :
+                    quiz.data.meta.category === 'history' ? 'bg-amber-500' :
+                    quiz.data.meta.category === 'pop-culture' ? 'bg-purple-500' :
+                    quiz.data.meta.category === 'sports' ? 'bg-red-500' :
+                    'bg-gray-500'
+                  }`}></div>
 
-                <div class="flex items-center space-x-4 text-sm text-gray-500 dark:text-slate-400">
-                  <span class="capitalize">{quiz.data.meta.category}</span>
-                  <span>•</span>
-                  <span class="capitalize">{quiz.data.meta.difficulty}</span>
-                  <span>•</span>
-                  <span>{quiz.data.questions.length}Q</span>
-                </div>
-
-                <div class="mt-4 pt-4 border-t border-gray-100 dark:border-slate-700">
-                  <div class="flex items-center justify-between text-xs text-gray-500 dark:text-slate-400">
-                    <span>{quiz.data.meta.date}</span>
-                    {!isFuture && (
-                      <span class="text-blue-600 dark:text-blue-400 font-medium">
-                        Play now →
+                  <!-- Card Content -->
+                  <div class="p-6">
+                    <!-- Category Tag -->
+                    <div class="mb-4">
+                      <span class={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                        quiz.data.meta.category === 'tech' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300' :
+                        quiz.data.meta.category === 'science' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
+                        quiz.data.meta.category === 'history' ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300' :
+                        quiz.data.meta.category === 'pop-culture' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300' :
+                        'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-300'
+                      }`}>
+                        {quiz.data.meta.category.replace('-', ' ')}
                       </span>
-                    )}
+                    </div>
+
+                    <!-- Title -->
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      {quiz.data.meta.topic}
+                    </h3>
+
+                    <!-- Meta Info -->
+                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-4">
+                      <span class="flex items-center gap-1">
+                        <Calendar class="w-4 h-4" />
+                        {quiz.data.meta.date}
+                      </span>
+                      <span class="w-1 h-1 rounded-full bg-gray-400"></span>
+                      <span class="capitalize">{quiz.data.meta.difficulty}</span>
+                    </div>
+
+                    <!-- Questions Count -->
+                    <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                      <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        {quiz.data.questions.length} Questions
+                      </span>
+                      {!isFuture && (
+                        <span class="text-sm font-medium text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform">
+                          Start →
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              </article>
             );
           })}
         </div>
